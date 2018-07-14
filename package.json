@@ -1,0 +1,19 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo with electron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KimWonJun/ToDo.git"
+  },
+  "author": "Wonjun Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KimWonJun/ToDo/issues"
+  },
+  "homepage": "https://github.com/KimWonJun/ToDo#readme"
+}
