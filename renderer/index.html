@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
     <meta charset="utf-8" />
-    <script>
-        window.$ = window.jQuery = require('jquery');
-    </script>
-    <title>main</title>
+    <title>ToDo</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
+
 <body>
-    <h1>안녕하세염</h1>
-    이 애플리케이션은 node <script>document.write(process.version)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    Electron <script>document.write(process.versions.electron)</script>을 사용합니다.
+    <div id="myDIV" class="header">
+        <h2 id="dateText">My To Do List</h2>
+        <input type="text" id="myInput" placeholder="Title...">
+        <span id="addBtn">추가</span>
+    </div>
+
+    <ul id="myUL">
+    </ul>
+    <script src="renderer.js"></script>
 </body>
+
 </html>

@@ -13,7 +13,7 @@ let win;
 let menu = new Menu();
 
 function createWindow() {
-    win = new BrowserWindow({width: 800, height: 600});
+    win = new BrowserWindow({width: 1200, height: 900});
 
     menu.append(new MenuItem({
         label: 'Open DevTool',
@@ -40,32 +40,33 @@ ipcMain.on('echo', (event, data) => {
     event.sender.send(data);
 });
 
-ipcMain.on('getTodos', (event) => {
+ipcMain.on('getTodos', (event, date) => {
     fs.readFile('./todos.json', (err, fileData) => {
         if(err)
-        {
-            console.log(err);
-            return;
+            return console.log(err);
+        let json = JSON.parse(fileData);
+        for(let day in json) {
+            if(json[day].date === date)
+                return event.sender.send('getTodos', json[day]);
         }
-        event.sender.send(JSON.parse(fileData));
+        json.push({date: new Date().toLocaleDateString(), todos: []});
+        fs.writeFile('./todos.json', JSON.stringify(json), (err) => {
+            if(err)
+                return console.log(err);
+        });
     });
 });
 
 ipcMain.on('newTodo', (event, newTodo) => {
+    console.log(newTodo);
     fs.readFile('./todos.json', (err, fileData) => {
-        let json = JSON.parse(fileData);
         if(err)
-        {
-            console.log(err);
-            return;
-        }
-        json[json.length].todos.push(newTodo);
+            return console.log(err);
+        let json = JSON.parse(fileData);
+        json[json.length - 1].todos.push(newTodo);
         fs.writeFile('./todos.json', JSON.stringify(json), () => {
             if(err)
-            {
-                console.log(err);
-                return;
-            }
+                return console.log(err);
         });
     });
 });
