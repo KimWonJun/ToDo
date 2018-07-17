@@ -1,46 +1,32 @@
 const {
     app,
     BrowserWindow,
-    ipcMain,
-    Menu,
-    MenuItem
+    ipcMain
 } = require('electron');
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
 
 let win;
-let menu = new Menu();
 
 function createWindow() {
     win = new BrowserWindow({width: 1200, height: 900});
-
-    menu.append(new MenuItem({
-        label: 'Open DevTool',
-        accelerator: 'CmdOrCtrl+O',
-        click: () => {
-            win.webContents.openDevTools();
-        }
-    }));
     
-    win.setMenu(menu);
-
+    win.setMenu(null);
     win.loadURL(url.format({
         pathname: path.join('..', 'renderer', 'index.html'),
         protocol: 'file',
         slashes: true
     }));
 
+    win.webContents.openDevTools();
+
     win.on('close', () => {
         win = null;
     });
 }
 
-ipcMain.on('echo', (event, data) => {
-    event.sender.send(data);
-});
-
-ipcMain.on('getTodos', (event, date) => {
+ipcMain.on('initial', (event, date) => {
     fs.readFile('./todos.json', (err, fileData) => {
         if(err)
             return console.log(err);
@@ -54,6 +40,31 @@ ipcMain.on('getTodos', (event, date) => {
             if(err)
                 return console.log(err);
         });
+        event.sender.send('getTodos');
+    });
+});
+
+ipcMain.on('getPreviousTodo', (event, date) => {
+    fs.readFile('./todos.json', (err, fileData) => {
+        if(err)
+            return console.log(err);
+        let json = JSON.parse(fileData);
+        for(let day in json)
+            if(json[day].date === date && day != 0)
+                return event.sender.send('getTodos', json[parseInt(day) - 1]);
+    });
+});
+
+ipcMain.on('getNextTodo', (event, date) => {
+    fs.readFile('./todos.json', (err, fileData) => {
+        if(err)
+            return console.log(err);
+        let json = JSON.parse(fileData);
+        for(let day in json)
+        {
+            if(json[day].date === date)
+                return event.sender.send('getTodos', json[parseInt(day) + 1]);
+        }
     });
 });
 

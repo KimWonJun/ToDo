@@ -104,6 +104,22 @@ input {
     font-size: 16px;
 }
 
+#previousDay {
+    padding-top: 20px;
+    cursor: pointer;
+    text-align: left;
+    float: left;
+    /* 왼쪽으로 보내버리기 */
+}
+
+#nextDay {
+    padding-top: 20px;
+    cursor: pointer;
+    text-align: right;
+    float: right;
+    /* 오른쪽으로 보내버리기 */
+}
+
 /* Style the "Add" button */
 #addBtn {
     padding: 10px;

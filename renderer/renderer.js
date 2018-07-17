@@ -4,8 +4,9 @@ const {
 
 let newElem = function newElement(string) {
     let li = document.createElement('li');
-    let t = document.createTextNode(string);
-    li.appendChild(t);
+    // let t = document.createTextNode(string);
+    // li.appendChild(t);
+    li.innerText = string;
     document.getElementById('myUL').appendChild(li);
     document.getElementById('myInput').value = '';
 
@@ -26,6 +27,12 @@ let newElem = function newElement(string) {
 ipcRenderer.on('getTodos', (event, day) => {
     document.getElementById('dateText').innerText = day.date;
     document.getElementById('myUL').innerHTML = '';
+    let nextDay = document.getElementById('nextDay');
+
+    if(day.date === new Date().toLocaleDateString())
+        nextDay.style.visibility = 'hidden';
+    else
+        nextDay.style.visibility = 'visible';
 
     day.todos.forEach(todo => {
         newElem(todo.name);
@@ -57,6 +64,14 @@ list.addEventListener('click', function (ev) {
     }
 }, false);
 
+document.getElementById('previousDay').onclick = function goPreviousDay() {
+    ipcRenderer.send('getPreviousTodo', document.getElementById('dateText').innerText);
+};
+
+document.getElementById('nextDay').onclick = function goNextDay() {
+    ipcRenderer.send('getNextTodo', document.getElementById('dateText').innerText);
+};
+
 document.getElementById('myInput').onkeyup = function enterEvent(e) {
     if (e.keyCode === 13)
         document.getElementById('addBtn').click();
@@ -77,4 +92,4 @@ document.getElementById('addBtn').onclick = function newElemOnClick() {
 
 //TODO: 전날 or 다음날로 갈 수 있게 하기
 
-ipcRenderer.send('getTodos', new Date().toLocaleDateString());
+ipcRenderer.send('initial', new Date().toLocaleDateString());

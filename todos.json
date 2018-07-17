@@ -1,1 +1,38 @@
-[{"date":"7/16/2018","todos":[{"name":"Eating","note":"","isSuccess":0},{"name":"Play PUBG","note":"","isSuccess":0},{"isSuccess":0,"name":"aa","note":""},{"isSuccess":0,"name":"hello","note":""},{"isSuccess":0,"name":"adfd","note":""},{"isSuccess":0,"name":"djfkdjfkdjfkdjfk","note":""},{"isSuccess":0,"name":"wow~~~","note":""}]}]
+[{
+    "date": "7/15/2018",
+    "todos": [{
+        "isSuccess": 0,
+        "name": "돈벌기",
+        "note": ""
+    }]
+},{
+    "date": "7/16/2018",
+    "todos": [{
+        "isSuccess": 0,
+        "name": "손승용혼내기",
+        "note": ""
+    }, {
+        "isSuccess": 0,
+        "name": "친구만들기",
+        "note": ""
+    }, {
+        "isSuccess": 0,
+        "name": "화이팅하기",
+        "note": ""
+    }, {
+        "isSuccess": 0,
+        "name": "공부하기",
+        "note": ""
+    }]
+}, {
+    "date": "7/17/2018",
+    "todos": [{
+        "isSuccess": 0,
+        "name": "hello",
+        "note": ""
+    }, {
+        "isSuccess": 0,
+        "name": "hello",
+        "note": ""
+    }]
+}]
